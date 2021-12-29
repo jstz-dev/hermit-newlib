@@ -10,6 +10,8 @@
 
   #include "x86_64mach.h"
 
+  .section .note.GNU-stack,"",%progbits
+
   .global SYM (memcpy)
   SOTYPE_FUNCTION(memcpy)
 

@@ -16,6 +16,8 @@
 
   #include "x86_64mach.h"
 
+  .section .note.GNU-stack,"",%progbits
+
   .global SYM (setjmp)
   .global SYM (longjmp)
   SOTYPE_FUNCTION(setjmp)
