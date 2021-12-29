@@ -25,6 +25,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+.section .note.GNU-stack,"",%progbits
+
 #ifdef __x86_64__
 
 // Required for Go applications
