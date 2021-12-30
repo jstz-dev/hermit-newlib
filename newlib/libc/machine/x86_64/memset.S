@@ -10,10 +10,6 @@
 
   #include "x86_64mach.h"
 
-  #if defined(__ELF__)
-  .section .note.GNU-stack,"",%progbits
-  #endif
-
   .global SYM (memset)
   SOTYPE_FUNCTION(memset)
 
@@ -90,3 +86,6 @@ quadword_set:
   movq    r9, rax
   ret
 
+  #if defined(__ELF__)
+  .section .note.GNU-stack,"",%progbits
+  #endif

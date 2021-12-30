@@ -25,8 +25,6 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-.section .note.GNU-stack,"",%progbits
-
 #ifdef __x86_64__
 
 // Required for Go applications
@@ -100,4 +98,8 @@ Lno_context:
 Lendless:
     jmp Lendless
 
+#endif
+
+#if defined(__ELF__)
+.section .note.GNU-stack,"",%progbits
 #endif

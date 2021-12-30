@@ -16,10 +16,6 @@
 
   #include "x86_64mach.h"
 
-  #if defined(__ELF__)
-  .section .note.GNU-stack,"",%progbits
-  #endif
-
   .global SYM (setjmp)
   .global SYM (longjmp)
   SOTYPE_FUNCTION(setjmp)
@@ -55,3 +51,7 @@ SYM (longjmp):
   __STI
 
   ret
+
+  #if defined(__ELF__)
+  .section .note.GNU-stack,"",%progbits
+  #endif
