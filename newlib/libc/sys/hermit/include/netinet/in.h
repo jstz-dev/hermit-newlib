@@ -20,6 +20,16 @@
 #endif
 
 typedef uint16_t in_port_t;
+#define htons __htons
+#define htonl __htonl
+#define ntohl __ntohl
+#define nthos __ntohs
+
+// Functions for converting between host and network byte order
+uint32_t htonl(uint32_t hostlong);
+uint16_t htons(uint16_t hostshort);
+uint32_t ntohl(uint32_t netlong);
+uint16_t ntohs(uint16_t netshort);
 
 int inet_pton(int af, const char *src, void *dst);
 
