@@ -139,8 +139,6 @@ typedef struct fd_set {
 	unsigned char fd_bits [(FD_SETSIZE+7)/8];
 } fd_set;
 
-#include <arpa/inet.h>
-
 #ifdef __cplusplus
 }
 #endif
