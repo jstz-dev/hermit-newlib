@@ -22,7 +22,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <arpa/inet.h>
 #include <netdb.h>
 
 /* The interface of this function is completely stupid, it requires a

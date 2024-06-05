@@ -14,10 +14,17 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <sys/types.h>
+#include <netdb.h>
 
 #ifdef __cplusplus
 {
 #endif
+
+// Functions for converting between string and network addresses
+int inet_pton(int af, const char *src, void *dst);
+const char *inet_ntop(int af, const void *src, char *dst, __socklen_t size);
+char *inet_ntoa(struct in_addr in);
+in_addr_t inet_addr(const char *cp);
 
 typedef uint16_t in_port_t;
 #define htons __htons
