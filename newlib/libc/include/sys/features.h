@@ -532,6 +532,37 @@ extern "C" {
 
 #endif /* __CYGWIN__ */
 
+
+#ifdef __hermit__
+
+/* Copied from __CYGWIN__ above */
+#if __POSIX_VISIBLE >= 200809
+#define _POSIX_VERSION				200809L
+#define _POSIX2_VERSION				200809L
+#elif __POSIX_VISIBLE >= 200112
+#define _POSIX_VERSION				200112L
+#define _POSIX2_VERSION				200112L
+#elif __POSIX_VISIBLE >= 199506
+#define _POSIX_VERSION				199506L
+#define _POSIX2_VERSION				199506L
+#elif __POSIX_VISIBLE >= 199309
+#define _POSIX_VERSION				199309L
+#define _POSIX2_VERSION				199209L
+#elif __POSIX_VISIBLE >= 199209
+#define _POSIX_VERSION				199009L
+#define _POSIX2_VERSION				199209L
+#elif __POSIX_VISIBLE
+#define _POSIX_VERSION				199009L
+#endif
+
+#define _POSIX_TIMERS				1
+#define _POSIX_CLOCK_SELECTION		200809L
+#define _POSIX_MONOTONIC_CLOCK		200809L
+#define _POSIX_PRIORITY_SCHEDULING	200809L
+
+#endif /* __hermit__ */
+
+
 #ifdef __cplusplus
 }
 #endif

@@ -51,3 +51,7 @@ SYM (longjmp):
   __STI
 
   ret
+
+  #if defined(__ELF__)
+  .section .note.GNU-stack,"",%progbits
+  #endif

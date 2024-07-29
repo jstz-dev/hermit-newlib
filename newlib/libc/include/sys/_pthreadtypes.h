@@ -18,6 +18,11 @@
 #ifndef _SYS__PTHREADTYPES_H_
 #define	_SYS__PTHREADTYPES_H_
 
+/* HermitCore uses pthread-embedded, which defines all types in pthread.h.
+ * Unfortunately, we cannot just include pthread.h here due to an #include recursion.
+ * So don't define any pthread types in newlib and rely on the user to include <pthread.h>. */
+#ifndef __hermit__
+
 #if defined(_POSIX_THREADS) || __POSIX_VISIBLE >= 199506
 
 #include <sys/sched.h>
@@ -229,5 +234,7 @@ typedef struct {
 #endif
 } pthread_rwlockattr_t;
 #endif /* defined(_POSIX_READER_WRITER_LOCKS) */
+
+#endif /* __hermit__ */
 
 #endif /* ! _SYS__PTHREADTYPES_H_ */

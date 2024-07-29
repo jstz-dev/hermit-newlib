@@ -447,6 +447,15 @@ extern void __malloc_unlock();
 #endif
 
 /*
+  INTERNAL_SIZE_MAX is the maximum value of INTERNAL_SIZE_T. 
+*/
+#ifdef __hermit__
+#define INTERNAL_SIZE_MAX ((1ULL << 48) - 1)
+#else 
+#define INTERNAL_SIZE_MAX __SIZE_MAX__
+#endif 
+
+/*
   Following is needed on implementations whereby long > size_t.
   The problem is caused because the code performs subtractions of
   size_t values and stores the result in long values.  In the case
@@ -2358,7 +2367,7 @@ Void_t* mALLOc(RARG bytes) RDECL size_t bytes;
   INTERNAL_SIZE_T nb  = request2size(bytes);  /* padded request size; */
 
   /* Check for overflow and just fail, if so. */
-  if (nb > INT_MAX || nb < bytes)
+  if (nb > INTERNAL_SIZE_MAX || nb < bytes)
   {
     RERRNO = ENOMEM;
     return 0;
@@ -2824,7 +2833,7 @@ Void_t* rEALLOc(RARG oldmem, bytes) RDECL Void_t* oldmem; size_t bytes;
   nb = request2size(bytes);
 
   /* Check for overflow and just fail, if so. */
-  if (nb > INT_MAX || nb < bytes)
+  if (nb > INTERNAL_SIZE_MAX || nb < bytes)
   {
     RERRNO = ENOMEM;
     return 0;
@@ -3060,7 +3069,7 @@ Void_t* mEMALIGn(RARG alignment, bytes) RDECL size_t alignment; size_t bytes;
   nb = request2size(bytes);
 
   /* Check for overflow. */
-  if (nb > __SIZE_MAX__ - (alignment + MINSIZE) || nb < bytes)
+  if (nb > INTERNAL_SIZE_MAX - (alignment + MINSIZE) || nb < bytes)
   {
     RERRNO = ENOMEM;
     return 0;

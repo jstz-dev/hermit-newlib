@@ -1703,7 +1703,7 @@ case $os in
 	     | os9* | macos* | osx* | ios* \
 	     | mpw* | magic* | mmixware* | mon960* | lnews* \
 	     | amigaos* | amigados* | msdos* | newsos* | unicos* | aof* \
-	     | aos* | aros* | cloudabi* | sortix* | twizzler* \
+	     | aos* | aros* | cloudabi* | sortix* | twizzler* | hermit* \
 	     | nindy* | vxsim* | vxworks* | ebmon* | hms* | mvs* \
 	     | clix* | riscos* | uniplus* | iris* | isc* | rtu* | xenix* \
 	     | mirbsd* | netbsd* | dicos* | openedition* | ose* \

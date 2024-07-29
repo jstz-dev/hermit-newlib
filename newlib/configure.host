@@ -476,6 +476,10 @@ case "${host}" in
   ft32*)
         sys_dir=
         ;;
+  *-*-hermit*)
+	posix_dir=posix
+	sys_dir=hermit
+	;;
   h8300-*-hms*)
 	sys_dir=h8300hms
 	;;
@@ -590,6 +594,9 @@ case "${host}" in
 	newlib_cflags="${newlib_cflags} -DHAVE_OPENDIR -DHAVE_RENAME -DGETREENT_PROVIDED -DSIGNAL_PROVIDED -DHAVE_BLKSIZE -DHAVE_FCNTL -DMALLOC_PROVIDED"
 	syscall_dir=syscalls
 	;;
+  *-*-hermit*)
+	newlib_cflags="${newlib_cflags} -DREENTRANT_SYSCALLS_PROVIDED -D__DYNAMIC_REENT__ -DSIGNAL_PROVIDED -DHAVE_NANOSLEEP"
++	;;
 # RTEMS supplies its own versions of some routines:
 #       malloc()            (reentrant version)
 #       exit()              RTEMS has a "global" reent to flush

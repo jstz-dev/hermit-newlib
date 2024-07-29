@@ -148,6 +148,16 @@ struct sigaction
 
 #endif
 
+#if defined(__hermit__)
+/*
+ * Possible values for ss_flags in stack_t below.
+ */
+#define SS_ONSTACK	0x1
+#define SS_DISABLE	0x2
+
+#define SA_ONSTACK	0x4	/* Signal delivery will be on a separate stack. */
+#endif
+
 /*
  * Structure used in sigaltstack call.
  */
@@ -223,7 +233,8 @@ int sigpause (int);
 int sigaltstack (const stack_t *__restrict, stack_t *__restrict);
 #endif
 
-#if __POSIX_VISIBLE >= 199506
+// Hermit defines pthread_kill in its pthread.h, so don't redefine it here.
+#if __POSIX_VISIBLE >= 199506 && !defined(__hermit__)
 int pthread_kill (pthread_t, int);
 #endif
 

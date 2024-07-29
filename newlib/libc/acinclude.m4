@@ -24,6 +24,7 @@ m4_foreach_w([SYS_DIR], [
   tic80 tirtos
   w65
   z8ksim
+  hermit
 ], [AM_CONDITIONAL([HAVE_LIBC_SYS_]m4_toupper(SYS_DIR)[_DIR], test "${sys_dir}" = SYS_DIR)])
 
 AC_TYPE_LONG_DOUBLE
