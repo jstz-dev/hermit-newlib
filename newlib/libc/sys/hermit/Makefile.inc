@@ -33,6 +33,6 @@ libc_a_SOURCES += \
   %D%/unlink.c \
   %D%/wait.c \
   %D%/write.c \
-  %D%/context.S
+  %D%/context.S \
   %D%/makecontext.c \
   %D%/inet_ntoa.c
