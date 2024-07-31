@@ -1,6 +1,8 @@
 #ifndef NETDB_H
 #define NETDB_H
 
+#include <stdint.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
