@@ -1001,6 +1001,16 @@ extern "C" {
     {
         return ((size_t) l.p) == ((size_t) r.p);
     }
+
+    // Operator to be compatible to libstd++
+    #if __cplusplus > 201703L
+    #include <compare>
+
+    inline std::strong_ordering operator<=>(pte_handle_t const& l, pte_handle_t const& r)
+    {
+        return ((size_t) l.p) <=> ((size_t) r.p);
+    }
+    #endif
 #endif
 
 
