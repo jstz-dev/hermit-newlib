@@ -67,6 +67,7 @@
 #define O_CLOEXEC	02000000	/* set close_on_exec */
 #endif
 
+#define	FD_CLOEXEC	1	/* posix */
 #define F_DUPFD		0	/* dup */
 #define F_GETFD		1	/* get close_on_exec */
 #define F_SETFD		2	/* set/clear close_on_exec */
