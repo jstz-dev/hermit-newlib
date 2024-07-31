@@ -1,6 +1,6 @@
 AARCH64_OBJTYPE=
 case "${target}" in
-  *-*-elf)
+  *-*-elf | *-*-hermit)
 	AARCH64_OBJTYPE=elf-
 	;;
 esac
