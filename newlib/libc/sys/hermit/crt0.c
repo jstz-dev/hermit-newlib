@@ -28,16 +28,73 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <getopt.h>
+#include <reent.h>
+#include "syscall.h"
 
 extern int main(int argc, char** argv);
 extern void __libc_init_array(void);
 extern void __libc_fini_array (void);
 extern int _init_signal(void);
 extern char** environ;
+extern void   __sinit (struct _reent *);
+extern struct _glue __sglue;
+extern __FILE __sf[3];
+
+typedef struct layout {
+   size_t size;
+} layout_t;
+
+#define HERMIT_MALLOC_ALIGN ((size_t)8)
+
+void* malloc(size_t s) {
+   return _malloc_r(_REENT, s);
+}
+
+void* _malloc_r(struct _reent* _r, size_t size) {
+   uint8_t *ptr = sys_malloc(size + sizeof(layout_t), HERMIT_MALLOC_ALIGN);
+   if (!ptr)
+      return NULL;
+
+   ((layout_t*)ptr)->size = size;
+   return (void*)(ptr + sizeof(layout_t));
+}
+
+void* calloc(size_t nmemb, size_t size) {
+   return _calloc_r(_REENT, nmemb, size);
+}
+
+void* _calloc_r(struct _reent* r, size_t nmemb, size_t size) {
+   return NULL;
+}
+
+void* realloc(void* ptr, size_t size) {
+   return _realloc_r(_REENT, ptr, size);
+}
+
+void* _realloc_r(struct _reent* r, void* ptr, size_t size) {
+   return NULL;
+}
+
+void free(void* ptr) {
+   _free_r(_REENT, ptr);
+}
+
+void _free_r(struct _reent* r, void* ptr) {
+   if (ptr) {
+      uint8_t* p = (uint8_t*)ptr - sizeof(layout_t);
+      sys_free(p, ((layout_t*)p)->size + sizeof(layout_t), HERMIT_MALLOC_ALIGN);
+   }
+}
 
 void runtime_entry(int argc, char** argv, char** env)
 {
    int ret;
+
+   // For some reason, the newlib symbol for _impure_ptr is NULL.
+   _impure_ptr = &_impure_data;
+   _REENT_INIT_PTR(_impure_ptr);
+   __sglue = (struct _glue){ NULL, 3, &__sf[0] };
+
 
    /* call init function */
    __libc_init_array();
