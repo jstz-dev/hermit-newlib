@@ -90,12 +90,6 @@ void runtime_entry(int argc, char** argv, char** env)
 {
    int ret;
 
-   // For some reason, the newlib symbol for _impure_ptr is NULL.
-   _impure_ptr = &_impure_data;
-   _REENT_INIT_PTR(_impure_ptr);
-   __sglue = (struct _glue){ NULL, 3, &__sf[0] };
-
-
    /* call init function */
    __libc_init_array();
 
