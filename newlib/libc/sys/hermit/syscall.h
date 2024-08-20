@@ -159,6 +159,8 @@ int swapcontext(ucontext_t *oucp, const ucontext_t *ucp);
 int getcontext(ucontext_t *ucp);
 int setcontext(ucontext_t *ucp);
 
+int32_t sys_mkdir(const char *name, uint32_t mode);
+
 #define __NR_exit 		0
 #define __NR_write		1
 #define __NR_open		2

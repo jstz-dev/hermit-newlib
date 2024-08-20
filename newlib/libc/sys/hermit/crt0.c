@@ -31,6 +31,7 @@
 #include <reent.h>
 #include "syscall.h"
 
+
 extern int main(int argc, char** argv);
 extern void __libc_init_array(void);
 extern void __libc_fini_array (void);
@@ -84,6 +85,12 @@ void _free_r(struct _reent* r, void* ptr) {
       uint8_t* p = (uint8_t*)ptr - sizeof(layout_t);
       sys_free(p, ((layout_t*)p)->size + sizeof(layout_t), HERMIT_MALLOC_ALIGN);
    }
+}
+
+int getentropy(void *ptr, __size_t n) { return -1; };
+
+int32_t mkdir(const char *name, uint32_t mode) {
+   return sys_mkdir(name, mode);
 }
 
 void runtime_entry(int argc, char** argv, char** env)
