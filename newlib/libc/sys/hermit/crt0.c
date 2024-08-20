@@ -29,6 +29,7 @@
 #include <unistd.h>
 #include <getopt.h>
 #include <reent.h>
+#include <dirent.h>
 #include "syscall.h"
 
 
@@ -92,6 +93,55 @@ int getentropy(void *ptr, __size_t n) { return -1; };
 int32_t mkdir(const char *name, uint32_t mode) {
    return sys_mkdir(name, mode);
 }
+
+int chdir(const char *path) {
+   return -1;
+}
+
+int fchdir(int fd) {
+   return -1;
+}
+
+int chmod(const char *path, mode_t mode) {
+   return -1;
+}
+
+int fchmod(int fd, mode_t mode) {
+   return -1;
+}
+
+int chown(const char *path, uid_t owner, gid_t group) {
+   return -1;
+}
+
+int fchown(int fd, uid_t owner, gid_t group) {
+   return -1;
+}
+
+int truncate(const char *path, off_t length) {
+   return -1;
+}
+int ftruncate(int fd, off_t length) { 
+   return -1; 
+}
+
+long fpathconf (int fd, int name) {
+   return -1;
+}
+
+long pathconf (const char *path, int name) {
+   return -1;
+}
+
+char *getcwd (char *__buf, size_t __size) {
+   return NULL;
+}
+
+int getdents(int fd, void *dp, int count) { return -1; }
+
+int _rename_r (struct _reent *r, const char *a, const char *b) { return -1; }
+
+
 
 void runtime_entry(int argc, char** argv, char** env)
 {

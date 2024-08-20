@@ -33,13 +33,11 @@
 #include <sys/types.h>
 #include "warning.h"
 
-#if 0
 int
 readlink (const char* path, char* buf, size_t bufsize)
 {
 	return _readlink_r(_REENT, path, buf, bufsize);
 }
-#endif
 
 int
 _readlink_r (struct _reent* ptr, const char* path, char* buf, size_t bufsize)

@@ -32,13 +32,11 @@
 #include <errno.h>
 #include "warning.h"
 
-#if 0
 int
 symlink (const char* path1, const char* path2)
 {
 	return _symlink_r(_REENT, path1, path2);
 }
-#endif
 
 int
 _symlink_r (struct _reent* ptr, const char* path1, const char* path2)
