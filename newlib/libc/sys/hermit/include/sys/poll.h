@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2024 TriliTech <contact@trili.tech>
+// SPDX-License-Identifier: MIT
+
 /*
  * Copyright (c) 2015, Stefan Lankes, RWTH Aachen University
  * All rights reserved.
@@ -35,31 +38,19 @@ extern "C" {
 #endif
 
 /* These are specified by iBCS2 */
-#define POLLIN          0x0001
-#define POLLPRI         0x0002
-#define POLLOUT         0x0004
-#define POLLERR         0x0008
-#define POLLHUP         0x0010
-#define POLLNVAL        0x0020
+#define POLLIN 1
+#define POLLPRI 2
+#define POLLOUT 4
+#define POLLERR 8
+#define POLLHUP 16
+#define POLLNVAL 32
 
-/* The rest seem to be more-or-less nonstandard. Check them! */
-#define POLLRDNORM      0x0040
-#define POLLRDBAND      0x0080
-#ifndef POLLWRNORM
-#define POLLWRNORM      0x0100
-#endif
-#ifndef POLLWRBAND
-#define POLLWRBAND      0x0200
-#endif
-#ifndef POLLMSG
-#define POLLMSG         0x0400
-#endif
-#ifndef POLLREMOVE
-#define POLLREMOVE      0x1000
-#endif
-#ifndef POLLRDHUP
-#define POLLRDHUP       0x2000
-#endif
+
+#define POLLRDNORM 64
+#define POLLRDBAND 128
+#define POLLWRNORM 256
+#define POLLWRBAND 512
+#define POLLRDHUP 8192
 
 #define POLLFREE        0x4000  /* currently only for epoll */
 
@@ -71,7 +62,7 @@ struct pollfd {
 	short revents;
 };
 
-typedef unsigned long int nfds_t;
+typedef unsigned long nfds_t;
 
 int poll(struct pollfd *fds, nfds_t nfds, int timeout);
 

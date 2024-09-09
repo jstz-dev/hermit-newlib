@@ -210,6 +210,8 @@ int sigwait (const sigset_t *, int *);
 #define sigemptyset(what)   (*(what) = 0, 0)
 #define sigfillset(what)    (*(what) = ~(0), 0)
 #define sigismember(what,sig) (((*(what)) & (1<<(sig))) != 0)
+#define sigorset(dst, sig1, sig2) (*(dst) = (*(sig1) | *(sig2)), 0)
+#define sigandset(dst, sig1, sig2) (*(dst) = (*(sig1) & *(sig2)), 0)
 #endif /* !__CYGWIN__ && !__rtems__ */
 #endif /* __POSIX_VISIBLE */
 

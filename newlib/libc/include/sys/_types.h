@@ -189,7 +189,11 @@ typedef	_CLOCK_T_	__clock_t;
 typedef	_TIME_T_	__time_t;
 
 #ifndef __machine_clockid_t_defined
+#if defined(__hermit__)
+#define _CLOCKID_T_ 	int
+#else
 #define	_CLOCKID_T_ 	unsigned long
+#endif
 #endif
 
 typedef	_CLOCKID_T_	__clockid_t;

@@ -1,65 +1,59 @@
-/*
- * Copyright (c) 2011, Stefan Lankes, RWTH Aachen University
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *    * Redistributions of source code must retain the above copyright
- *      notice, this list of conditions and the following disclaimer.
- *    * Redistributions in binary form must reproduce the above copyright
- *      notice, this list of conditions and the following disclaimer in the
- *      documentation and/or other materials provided with the distribution.
- *    * Neither the name of the University nor the names of its contributors
- *      may be used to endorse or promote products derived from this
- *      software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE FOR ANY
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+// SPDX-FileCopyrightText: 2024 TriliTech <contact@trili.tech>
+// SPDX-License-Identifier: MIT
 
-/*
- * Stub version of stat.
- */
-
-#include "config.h"
-#include <reent.h>
-#include <_ansi.h>
-#include <_syslist.h>
-#include <sys/types.h>
 #include <sys/stat.h>
+#include <reent.h>
 #include <errno.h>
-#include "syscall.h"
-#include "warning.h"
+#include <hermit.h>
 
-int
-stat (const char* file, struct stat* st)
+HERMIT_STUB(int, chmod, (const char *path, mode_t mode), -1)
+HERMIT_STUB(int, fchmod, (int fd, mode_t mode), -1)
+HERMIT_STUB(int, fchmodat, (int fd, const char *path, mode_t mode, int flag), -1)
+
+int fstat(int fd, struct stat *st)
 {
-	return _stat_r(_REENT, file, st);
+	return _fstat_r(_REENT, fd, st);
 }
 
-int
-_stat_r (struct _reent* ptr, const char* file, struct stat* st)
+int _fstat_r(struct _reent *reent, int fd, struct stat *st)
 {
-	int ret;
-
-	if (!file && ! st) {
-		ptr->_errno = EINVAL;
+	if (fd < 0)
+	{
+		reent->_errno = EBADF;
 		return -1;
 	}
 
-	ret = sys_stat(file, st);
-	if (ret < 0) {
-		ptr->_errno = -ret;
+	int ret = sys_fstat(fd, st);
+	if (ret < 0)
+	{
+		reent->_errno = -ret;
 		return -1;
 	}
 
-	return 0;
+	return ret;
 }
+
+HERMIT_STUB(int, fstatat, (int fd, const char *path, struct stat *st, int flag), -1)
+
+HERMIT_STUB(int, futimens, (int fd, const struct timespec times[2]), -1)
+HERMIT_STUB(int, futimesat, (int dirfd, const char *pathname, const struct timeval times[2]), -1)
+
+HERMIT_STUB(int, lchmod, (const char *path, mode_t mode), -1)
+HERMIT_SYSCALL(int, lstat, (const char *path, struct stat *st), (path, st))
+
+HERMIT_SYSCALL(int, mkdir, (const char *path, mode_t mode), (path, mode))
+HERMIT_STUB(int, mkdirat, (int fd, const char *path, mode_t mode), -1)
+
+HERMIT_STUB(int, mkfifo, (const char *path, mode_t mode), -1)
+HERMIT_STUB(int, mkfifoat, (int fd, const char *path, mode_t mode), -1)
+
+HERMIT_STUB(int, mknod, (const char *path, mode_t mode, dev_t dev), -1)
+HERMIT_STUB(int, mknodat, (int fd, const char *path, mode_t mode, dev_t dev), -1)
+
+HERMIT_SYSCALL(int, stat, (const char *path, struct stat *st), (path, st))
+
+HERMIT_STUB(mode_t, umask, (mode_t mask), -1)
+
+HERMIT_STUB(int, utimensat, (int fd, const char *path, const struct timespec times[2], int flag), -1)
+HERMIT_STUB(int, futimes, (int fd, const struct timeval times[2]), -1)
+HERMIT_STUB(int, lutimes, (const char *path, const struct timeval times[2]), -1)

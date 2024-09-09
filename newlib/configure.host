@@ -595,8 +595,8 @@ case "${host}" in
 	syscall_dir=syscalls
 	;;
   *-*-hermit*)
-	newlib_cflags="${newlib_cflags} -DREENTRANT_SYSCALLS_PROVIDED -D__DYNAMIC_REENT__ -DSIGNAL_PROVIDED -DHAVE_NANOSLEEP -DMALLOC_PROVIDED"
-+	;;
+	newlib_cflags="${newlib_cflags} -DREENTRANT_SYSCALLS_PROVIDED -D__DYNAMIC_REENT__ -DHAVE_NANOSLEEP -DMALLOC_PROVIDED"
+  ;;
 # RTEMS supplies its own versions of some routines:
 #       malloc()            (reentrant version)
 #       exit()              RTEMS has a "global" reent to flush

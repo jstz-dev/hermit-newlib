@@ -1,0 +1,4 @@
+// SPDX-FileCopyrightText: 2024 TriliTech <contact@trili.tech>
+// SPDX-License-Identifier: MIT
+
+#include <sys/poll.h>

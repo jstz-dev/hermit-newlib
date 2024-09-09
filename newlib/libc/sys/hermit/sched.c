@@ -1,31 +1,25 @@
-// Copyright (c) 2018 Colin Finck, RWTH Aachen University
-//
-// MIT License
-//
-// Permission is hereby granted, free of charge, to any person obtaining
-// a copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to
-// permit persons to whom the Software is furnished to do so, subject to
-// the following conditions:
-//
-// The above copyright notice and this permission notice shall be
-// included in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+// SPDX-FileCopyrightText: 2024 TriliTech <contact@trili.tech>
+// SPDX-License-Identifier: MIT
 
-#include "syscall.h"
+#include <sched.h>
+#include <reent.h>
+#include <errno.h>
+#include <hermit.h>
 
-int
-sched_yield (void)
-{
-	sys_yield();
-	return 0;
-}
+// TODO:
+// Stub sched_{set/get}affinity
+// Stub sched_cpucount
+
+HERMIT_STUB(int, sched_get_priority_max, (int policy), -1)
+HERMIT_STUB(int, sched_get_priority_min, (int policy), -1)
+
+HERMIT_STUB(int, sched_getcpu, (void), -1)
+HERMIT_STUB(int, sched_rr_get_interval, (pid_t pid, struct timespec *interval), -1)
+
+HERMIT_STUB(int, sched_getparam, (pid_t pid, struct sched_param *param), -1)
+HERMIT_STUB(int, sched_setparam, (pid_t pid, const struct sched_param *param), -1)
+
+HERMIT_STUB(int, sched_getscheduler, (pid_t pid), -1)
+HERMIT_STUB(int, sched_setscheduler, (pid_t pid, int policy, const struct sched_param *param), -1)
+
+HERMIT_SYSCALL(int, sched_yield, (void), ())

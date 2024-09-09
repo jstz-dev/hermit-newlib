@@ -8,7 +8,7 @@
    includes the W32api winsock[2].h header must know what it is doing;
    it must not call the Cygwin select function.
 */
-# if !(defined (_WINSOCK_H) || defined(__hermit__) || defined (_WINSOCKAPI_) || defined (__USE_W32_SOCKETS))
+# if !(defined (_WINSOCK_H) || defined (_WINSOCKAPI_) || defined (__USE_W32_SOCKETS))
 
 #include <sys/cdefs.h>
 #include <sys/_sigset.h>
